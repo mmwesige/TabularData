@@ -4,7 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Fetch and Graph CSV</title>
   </head>
-  <body></body>
+  <body>
+    <script>
+      //Data From National Aeronautics and Space Administration Goddard Institute for Space Studies
+
+      getData()
+      async function getData() {
+        const response = await fetch('ZonAnn.Ts+dSST.csv')
+        const data = await response.text()
+
+        //Split the Data by Rows
+        const table = data.split('\n').slice(1)
+        table.forEach(row => {
+          const columns = row.split(',')
+          const year = columns[0] //Selecting the Year
+          const temp = columns[1] //Selecting the Global Temperature
+          console.log(year, temp)
+        })
+      }
+    </script>
+  </body>
 </html>
